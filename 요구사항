@@ -1,0 +1,19 @@
+설정
+# 차트 옵션
+- 차트 크기 설정
+- 차트 categories 설정
+  - linear
+  - keys
+  - 특정 컬럼
+
+# 기본 설정
+- csv delimeter (,로할 건지 공백으로 할건지)
+
+
+
+# 샘플 데이터 확보
+# 교통사고 데이터
+https://www.data.go.kr/dataset/3038489/fileData.do
+
+# 부동산
+https://www.data.go.kr/dataset/3035522/fileData.do

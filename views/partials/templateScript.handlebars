@@ -1,0 +1,86 @@
+<div id="previewTemplate" style="display:none">
+  <li class="nav-item dz-preview dz-file-preview" style="display:none">
+    <a class="dz-details" href="#">
+      <span class="dz-filename"><span data-dz-name></span></span>
+      (<span class="dz-size" data-dz-size></span>)
+      <img data-dz-thumbnail />
+    </a>
+    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+  </li>
+</div>
+
+<script id="mainContainerTemplate" type="text/x-handlebars-template">
+  <div id="panel-\{{id}}">
+    <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-mode btn-table-mode btn-primary"><i class="fa fa-table"></i></button>
+        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="line"><i class="fa fa-line-chart"></i></button>
+        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="area"><i class="fa fa-area-chart"></i></button>
+        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="bar"><i class="fa fa-bar-chart"></i></button>
+        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="pie"><i class="fa fa-pie-chart"></i></button>
+      </div>
+    </div>
+    <br />
+    <div id="viewContainer-\{{id}}" class="viewContainer-id"></div>
+  </div>
+</script>
+
+<script id="chartTemplate" type="text/x-handlebars-template">
+  <div id="chart-\{{id}}" />
+</script>
+
+<script id="alertTemplate" type="text/x-handlebars-template">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <span id="errorMessage">\{{errorMessage}}</span>
+  </div>
+</script>
+
+<script id="tableTemplate" type="text/x-handlebars-template">
+  <table class="table">
+      <thead>
+        \{{#each headers}}
+          <th>\{{.}}</th>
+        \{{/each}}
+      </thead>
+      <tbody>
+        \{{#each values}}
+          <tr>
+            \{{#each .}}
+              <td>\{{.}}</td>
+            \{{/each}}
+          </tr>
+        \{{/each}}
+      </tbody>
+  </table>
+</script>
+
+<script>
+Dropzone.options.myAwesomeDropzone = {
+  paramName: "file", // The name that will be used to transfer the file
+  createImageThumbnails : false,
+  acceptedFiles : ".csv",
+  previewTemplate: document.querySelector('#previewTemplate').innerHTML,
+  success: function(file) {
+    location.href="/";
+  },
+  error: function(file,errorMessage){
+    console.error("error message : ",errorMessage);
+    var alertTemplate = Handlebars.compile($("#alertTemplate").html());
+    $("#alertContainer").html(alertTemplate({errorMessage : errorMessage}));
+  },
+  dictInvalidFileType : "csv파일 형식 외에는 업로드하실 수 없습니다.",
+  dictDefaultMessage : ""
+};
+
+//handlebars helpers
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+  if(v1 === v2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
+</script>

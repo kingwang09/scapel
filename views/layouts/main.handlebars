@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <title>Scapel v0.0.1</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css/starter-template.css" rel="stylesheet">
+  <link href="css/billboard.css" rel="stylesheet">
+  <link rel="icon" href="css/favicon.ico">
+</head>
+<body>
+  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/"><i class="fa fa-eercast white"></i> Scapel</a>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        {{{body}}}
+      </div>
+    </div>
+  <!-- /.container -->
+  <script src="js/lib/jquery-3.2.1.min.js"></script>
+  <script src="js/lib/dropzone.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/handlebars-v4.0.10.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>-->
+  <script src="js/lib/d3.min.js"></script>
+  <script src="js/lib/billboard.js"></script>
+  <script src="js/custom/scapel.js"></script>
+  <script src="js/custom/utils.js"></script>
+  {{>templateScript}}
+  {{{_sections.script}}}
+</body>
+</html>

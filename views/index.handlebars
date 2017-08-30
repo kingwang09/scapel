@@ -1,0 +1,61 @@
+
+<nav class="col-sm-2 sidebar">
+  <form id="my-awesome-dropzone" action="/file-upload" class="dropzone" method="post" enctype="multipart/form-data">
+    <div class="fallback">
+      <input name="file" type="images" multiple style="display:none"/>
+    </div>
+    <ul class="nav nav-pills flex-column">
+      {{#each uploadFiles}}
+        <li class="nav-item">
+          <a class="nav-link file-read-link" href="#" fileName="{{.}}">
+            {{.}}
+            <span class="file-delete-link pull-right" fileName="{{.}}"><i class="fa fa-remove red"></i></span>
+          </a>
+        </li>
+      {{/each}}
+    </ul>
+  </form>
+</nav>
+
+<main class="col-sm-10 offset-sm-2 pt-3">
+  <div id="alertContainer"></div>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    왼쪽 목록에 조회 하실 파일을 선택하시거나 파일을 <strong>드래그앤드롭</strong>하여 추가하여 주세요.
+  </div>
+  <div id="mainContainer">
+  </div>
+</main>
+{{#section "script"}}
+<script>
+//toolbar events
+var scapel = window.scapel || {};
+$(document).ready(function(){
+
+  //file Reader
+  $("a.file-read-link").on("click", function() {
+    var $this = $(this);
+    var fileName = $this.attr("fileName");
+    var mainTemplate, viewTemplate;
+    scapel.utils.highlight("a.file-read-link", "active", $this);
+
+    scapel.selected = [];
+    scapel.selected.push(new Scapel(fileName, true));
+  });
+
+  //file remove
+  $("span.file-delete-link").on("click",function(){
+    var fileName = $(this).attr("fileName");
+    var removeScapel = scapel.selected.find(function(o) {
+      if(o.fileName === fileName) {
+        return o;
+      }
+      return null;
+    });
+    removeScapel.remove();
+  });
+});
+</script>
+{{/section}}
