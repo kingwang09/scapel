@@ -13,18 +13,33 @@
 </head>
 <body>
   <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="/"><i class="fa fa-eercast white"></i> Scapel</a>
-    </nav>
+    <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/"><i class="fa fa-eercast white"></i> Scapel</a>
 
-    <div class="container-fluid">
-      <div class="row">
-        {{{body}}}
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <!--
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        -->
+      </ul>
+      <div class="mt-2 mt-md-0">
+        <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#dashboardAddModal">카드 추가</button>
       </div>
     </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      {{{body}}}
+    </div>
+  </div>
   <!-- /.container -->
+  {{>dropFileTemplate}}
+  {{>modalTemplate}}
   <script src="js/lib/jquery-3.2.1.min.js"></script>
   <script src="js/lib/dropzone.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
