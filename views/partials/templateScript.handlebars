@@ -1,28 +1,26 @@
-<div id="previewTemplate" style="display:none">
-  <li class="nav-item dz-preview dz-file-preview" style="display:none">
-    <a class="dz-details" href="#">
-      <span class="dz-filename"><span data-dz-name></span></span>
-      (<span class="dz-size" data-dz-size></span>)
-      <img data-dz-thumbnail />
-    </a>
-    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-    <div class="dz-error-message"><span data-dz-errormessage></span></div>
-  </li>
-</div>
-
 <script id="mainContainerTemplate" type="text/x-handlebars-template">
-  <div id="panel-\{{id}}">
-    <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-mode btn-table-mode btn-primary"><i class="fa fa-table"></i></button>
-        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="line"><i class="fa fa-line-chart"></i></button>
-        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="area"><i class="fa fa-area-chart"></i></button>
-        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="bar"><i class="fa fa-bar-chart"></i></button>
-        <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="pie"><i class="fa fa-pie-chart"></i></button>
-      </div>
+  <div class="card" id="panel-\{{id}}">
+    <div class="card-header">
+        <b>\{{fileName}}</b>
+        <div class="pull-right">
+          <button type="button" class="close" aria-label="Close" id="close-\{{id}}">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
     </div>
-    <br />
-    <div id="viewContainer-\{{id}}" class="viewContainer-id"></div>
+    <div class="card-block">
+      <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-mode btn-table-mode btn-primary"><i class="fa fa-table"></i></button>
+          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="line"><i class="fa fa-line-chart"></i></button>
+          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="area"><i class="fa fa-area-chart"></i></button>
+          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="bar"><i class="fa fa-bar-chart"></i></button>
+          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="pie"><i class="fa fa-pie-chart"></i></button>
+        </div>
+      </div>
+      <br />
+      <div id="viewContainer-\{{id}}" class="viewContainer-id"></div>
+    </div>
   </div>
 </script>
 
@@ -56,6 +54,17 @@
         \{{/each}}
       </tbody>
   </table>
+</script>
+
+<script id="dashboardAddTemplate" type="text/x-handlebars-template">
+  \{{#each files}}
+    <div class="form-check">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="fileName" value="\{{.}}">
+        \{{.}}
+      </label>
+    </div>
+  \{{/each}}
 </script>
 
 <script>
