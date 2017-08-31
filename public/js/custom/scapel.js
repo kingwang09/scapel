@@ -1,6 +1,7 @@
-function Scapel(fileName, isFirst){
+function Scapel(fileName, isFirst, index){
   var that = this;
   this.id = new Date().getTime();
+  this.id = index ? this.id + '-' + index : this.id;
   this.fileName = fileName;
   this.isFirst = isFirst || false;
   this.tableData;
@@ -49,7 +50,7 @@ Scapel.prototype.makeMainContainer = function() {
   var btnClassName = '.btn-mode';
   var viewContainerId = 'viewContainer-'+this.id;
   var mainTemplate = Handlebars.compile($("#mainContainerTemplate").html());
-  var render = mainTemplate({id: this.id});
+  var render = mainTemplate({id: this.id, fileName : this.fileName.substring(0, this.fileName.lastIndexOf('.'))});
   this.isFirst ? $("#mainContainer").html(render) : $("#mainContainer").append(render);
   //$("#mainContainer").append(mainTemplate({id: this.id}));
   //renderMethod(mainTemplate({id: this.id}));
@@ -73,6 +74,21 @@ Scapel.prototype.makeMainContainer = function() {
     chartTemplate = Handlebars.compile($("#chartTemplate").html());
     $('#'+viewContainerId).html(chartTemplate(that.chartData));
     scapel.utils.makeChart(chartId, chartType, that.chartData, that.fileName);
+  });
+
+  $("#close-"+this.id).on("click", function() {
+    var removeIndex = -1;
+    if( that.isFirst ){
+        alert("메인 카드는 지울 수 없습니다.");
+    } else {
+        $("#panel-"+that.id).remove();
+        scapel.selected.findIndex(function(o, i) {
+          if(that.id === o.id){
+            scapel.selected.splice(removeIndex, 1);
+          }
+        });
+
+    }
   });
 };
 
