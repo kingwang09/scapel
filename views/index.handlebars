@@ -25,7 +25,7 @@
     </button>
     왼쪽 목록에 조회 하실 파일을 선택하시거나 파일을 <strong>드래그앤드롭</strong>하여 추가하여 주세요.
   </div>
-  <div id="mainContainer">
+  <div id="mainContainer" class="card-group">
   </div>
 </main>
 {{#section "script"}}
@@ -55,6 +55,28 @@ $(document).ready(function(){
       return null;
     });
     removeScapel.remove();
+  });
+
+  //modal
+  $('#dashboardAddModal').on('show.bs.modal', function (e) {
+    // do something...
+    console.log("show bs modal");
+    $.ajax({
+        url : '/file-list',
+        dataType : 'json',
+        success : function(response) {
+          console.log("response : ",response);
+          var dashboardAddTemplate = Handlebars.compile($("#dashboardAddTemplate").html());
+          $("#dashboardAddForm").html(dashboardAddTemplate(response));
+        }
+    });
+  });
+
+  $("#dashboardSubmit").on("click", function(){
+    $("#dashboardAddForm").find("input:checked").each(function(index){
+        console.log(index,this.value);
+        scapel.selected.push(new Scapel(this.value, false, index));
+    });
   });
 });
 </script>
