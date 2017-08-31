@@ -29,7 +29,6 @@ app.get("/",function(req,res){
   fs.readdir(UPLOAD_FULL_PATH,function(err,files){
     res.render("index",{uploadFiles:files});
   });
-
 });
 
 app.post("/file-upload", function(req,res){
@@ -69,6 +68,12 @@ app.get("/setting-form/:fileName",function(req,res){
   var fileName = req.params.fileName;
   csv.csvReader(UPLOAD_FULL_PATH, fileName, {headers:true, objectMode:true}, function(result){
     res.json(result);
+  });
+});
+
+app.get("/file-list",function(req,res){
+  fs.readdir(UPLOAD_FULL_PATH,function(err,files){
+    res.json({files : files});
   });
 });
 
