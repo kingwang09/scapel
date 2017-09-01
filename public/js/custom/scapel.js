@@ -1,4 +1,4 @@
-function Scapel(fileName, isFirst, index){
+function Scapel(fileName, isFirst, index, isRender){
   var that = this;
   this.id = new Date().getTime();
   this.id = index ? this.id + '-' + index : this.id;
@@ -7,9 +7,12 @@ function Scapel(fileName, isFirst, index){
   this.tableData;
   this.chartData;
 
-  this.setTableData(true);
+  this.setTableData(isRender);
   this.setChartData(false);
-  this.makeMainContainer();
+  if(isRender){
+      this.makeMainContainer();
+  }
+
 }
 
 Scapel.prototype.setTableData = function(isRender) {
@@ -50,7 +53,7 @@ Scapel.prototype.makeMainContainer = function() {
   var btnClassName = '.btn-mode';
   var viewContainerId = 'viewContainer-'+this.id;
   var mainTemplate = Handlebars.compile($("#mainContainerTemplate").html());
-  var render = mainTemplate({id: this.id, fileName : this.fileName.substring(0, this.fileName.lastIndexOf('.'))});
+  var render = mainTemplate({id: this.id, layout : scapel.layout, fileName : this.fileName.substring(0, this.fileName.lastIndexOf('.'))});
   this.isFirst ? $("#mainContainer").html(render) : $("#mainContainer").append(render);
   //$("#mainContainer").append(mainTemplate({id: this.id}));
   //renderMethod(mainTemplate({id: this.id}));
@@ -99,12 +102,18 @@ Scapel.prototype.makeViewContainer = function(viewContainerId) {
 };
 
 Scapel.prototype.remove = function() {
+  var that = this;
   $.ajax({
     url : '/file-delete/'+this.fileName,
     success:function(response){
       if(response.result){
-        scapel.selected.remove(this);
-        location.href="/";
+        let index = scapel.selected.findIndex(function(o,i) {
+            return that.id == o.id;
+        });
+        if( index !== -1){
+          scapel.selected.splice(index, 1);
+          location.href = "/";
+        }
       }
     }
   });

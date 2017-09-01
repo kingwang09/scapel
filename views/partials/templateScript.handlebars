@@ -1,25 +1,26 @@
 <script id="mainContainerTemplate" type="text/x-handlebars-template">
-  <div class="card" id="panel-\{{id}}">
-    <div class="card-header">
-        <b>\{{fileName}}</b>
-        <div class="pull-right">
-          <button type="button" class="close" aria-label="Close" id="close-\{{id}}">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-    </div>
-    <div class="card-block">
-      <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-mode btn-table-mode btn-primary"><i class="fa fa-table"></i></button>
-          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="line"><i class="fa fa-line-chart"></i></button>
-          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="area"><i class="fa fa-area-chart"></i></button>
-          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="bar"><i class="fa fa-bar-chart"></i></button>
-          <button type="button" class="btn btn-mode btn-chart-mode btn-secondary" chartType="pie"><i class="fa fa-pie-chart"></i></button>
-        </div>
+  <div class="card-panel \{{layout}}">
+    <div class="card" id="panel-\{{id}}">
+      <div class="card-header">
+          <b>\{{fileName}}</b>
+          <div class="pull-right">
+            <!-- <div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Toolbar with button groups"> -->
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button type="button" class="btn btn-sm btn-mode btn-table-mode btn-primary"><i class="fa fa-table"></i></button>
+                <button type="button" class="btn btn-sm btn-mode btn-chart-mode btn-secondary" chartType="line"><i class="fa fa-line-chart"></i></button>
+                <button type="button" class="btn btn-sm btn-mode btn-chart-mode btn-secondary" chartType="area"><i class="fa fa-area-chart"></i></button>
+                <button type="button" class="btn btn-sm btn-mode btn-chart-mode btn-secondary" chartType="bar"><i class="fa fa-bar-chart"></i></button>
+                <button type="button" class="btn btn-sm btn-mode btn-chart-mode btn-secondary" chartType="pie"><i class="fa fa-pie-chart"></i></button>
+                <button type="button" class="close" aria-label="Close" id="close-\{{id}}" style="padding-left:10px">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            <!-- </div> -->
+          </div>
       </div>
-      <br />
-      <div id="viewContainer-\{{id}}" class="viewContainer-id"></div>
+      <div class="card-block" style="overflow:auto">
+        <div id="viewContainer-\{{id}}" class="viewContainer-id"></div>
+      </div>
     </div>
   </div>
 </script>
@@ -38,7 +39,7 @@
 </script>
 
 <script id="tableTemplate" type="text/x-handlebars-template">
-  <table class="table">
+  <table class="table custom-table">
       <thead>
         \{{#each headers}}
           <th>\{{.}}</th>

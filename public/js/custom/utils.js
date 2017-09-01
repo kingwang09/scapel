@@ -18,9 +18,9 @@ scapel.utils.makeChart = function(id, chartType, response, fileName) {
     },
     axis:{
       x:{
-        type : xAxisType,//"category",//timeseries,indexed
+        type : xAxisType,//,//"category",//timeseries,indexed
         tick : {
-          count : 5
+          count : 12
         }
       }
     }

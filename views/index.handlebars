@@ -1,5 +1,5 @@
 
-<nav class="col-sm-2 sidebar">
+<nav class="col-sm-2 sidebar hidden-xs-down bg-faded ">
   <form id="my-awesome-dropzone" action="/file-upload" class="dropzone" method="post" enctype="multipart/form-data">
     <div class="fallback">
       <input name="file" type="images" multiple style="display:none"/>
@@ -25,7 +25,7 @@
     </button>
     왼쪽 목록에 조회 하실 파일을 선택하시거나 파일을 <strong>드래그앤드롭</strong>하여 추가하여 주세요.
   </div>
-  <div id="mainContainer" class="card-group">
+  <div id="mainContainer" class="row">
   </div>
 </main>
 {{#section "script"}}
@@ -33,6 +33,11 @@
 //toolbar events
 var scapel = window.scapel || {};
 $(document).ready(function(){
+  scapel.selected = [];
+  scapel.layout = "col-sm-12";
+  {{#each uploadFiles}}
+    scapel.selected.push(new Scapel("{{.}}", false, 0, false));
+  {{/each}}
 
   //file Reader
   $("a.file-read-link").on("click", function() {
@@ -40,32 +45,29 @@ $(document).ready(function(){
     var fileName = $this.attr("fileName");
     var mainTemplate, viewTemplate;
     scapel.utils.highlight("a.file-read-link", "active", $this);
-
-    scapel.selected = [];
-    scapel.selected.push(new Scapel(fileName, true));
+    scapel.selected.push(new Scapel(fileName, true, 0, true));
   });
 
   //file remove
-  $("span.file-delete-link").on("click",function(){
+  $("span.file-delete-link").on("click",function(e){
     var fileName = $(this).attr("fileName");
-    var removeScapel = scapel.selected.find(function(o) {
-      if(o.fileName === fileName) {
-        return o;
-      }
-      return null;
+    var removeScapel = scapel.selected.find(function(o,i) {
+      return o.fileName == fileName;
     });
-    removeScapel.remove();
+    console.log("removeScapel : ",removeScapel);
+    if(removeScapel) {
+        removeScapel.remove();
+    }
+    e.stopPropagation();
   });
 
   //modal
   $('#dashboardAddModal').on('show.bs.modal', function (e) {
     // do something...
-    console.log("show bs modal");
     $.ajax({
         url : '/file-list',
         dataType : 'json',
         success : function(response) {
-          console.log("response : ",response);
           var dashboardAddTemplate = Handlebars.compile($("#dashboardAddTemplate").html());
           $("#dashboardAddForm").html(dashboardAddTemplate(response));
         }
@@ -75,9 +77,17 @@ $(document).ready(function(){
   $("#dashboardSubmit").on("click", function(){
     $("#dashboardAddForm").find("input:checked").each(function(index){
         console.log(index,this.value);
-        scapel.selected.push(new Scapel(this.value, false, index));
+        scapel.selected.push(new Scapel(this.value, false, index, true));
     });
   });
+
+  $("button.btn-layout").on("click", function() {
+    let layoutClass = $(this).attr("layout");
+    $(".card-panel").removeClass("col-sm-12 col-sm-6 col-sm-3").addClass(layoutClass);
+    $("button.btn-layout").removeClass("active");
+    $(this).addClass("active");
+    scapel.layout = layoutClass;
+  })
 });
 </script>
 {{/section}}

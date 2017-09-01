@@ -27,7 +27,16 @@
         -->
       </ul>
       <div class="mt-2 mt-md-0">
-        <button class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#dashboardAddModal">카드 추가</button>
+        <button class="btn btn-outline-primary btn-sm btn-layout" layout="col-sm-3">
+          <i class="fa fa-th"></i>
+        </button>
+        <button class="btn btn-outline-primary btn-sm btn-layout" layout="col-sm-6">
+          <i class="fa fa-th-list"></i>
+        </button>
+        <button class="btn btn-outline-primary btn-sm btn-layout active" layout="col-sm-12">
+          <i class="fa fa-th-large"></i>
+        </button>
+        <button class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#dashboardAddModal">카드 추가</button>
       </div>
     </div>
   </nav>
@@ -42,6 +51,7 @@
   {{>modalTemplate}}
   <script src="js/lib/jquery-3.2.1.min.js"></script>
   <script src="js/lib/dropzone.js"></script>
+  <script src="js/lib/tether.min.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
   <script src="js/lib/handlebars-v4.0.10.js"></script>
   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>-->
